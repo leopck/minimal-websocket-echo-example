@@ -12,6 +12,10 @@ It works on Android, iOS, Windows and Linux, Chrome, etc...
 
 3. Once connected you can click the button and it'll send the letter 'e' over and display on console and on your webpage the reply.
 
-```
 
+Change this to change what your message whenever you click the button.
+```
+function onSend(){
+        socket.send('e');
+}
 ```
