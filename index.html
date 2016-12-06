@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Minimal Websocket Example</title>
+    <script type="text/javascript" src="responding-ws.js"></script>
+  </head>
+  <body>
+    <p id="person">itest</p>
+
+	<p>
+		Basically, this test will connect to websocket based on the ip address of this URL. For example, http://192.168.4.1 is hosting this website, then once you access this website, it'll connect to 192.168.4.1/d/ws/issue websocket. Also it checks for basic things like is this is http, ws or wss.
+
+	 </p>
+
+<p>
+Once connected, it'll display whenever the websocket server sends somethg. it'll show on your console and write into id=person. It'll be writing the letter 'e'. That's all. You can change the program however you like.
+</p>
+
+    <button onclick="onSend()">Click me</button>
+  </body>
+
+<script>
+// Code injected by live-server
+  var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+  var address = protocol + window.location.host + window.location.pathname + 'd/ws/issue';
+  var socket = new WebSocket(address);
+
+(function() {
+  socket.onmessage = function(msg) {
+	console.log("I just got reply from server!: " + msg.data);
+	var node = document.createElement("p");                 // Create a <li> node
+	var textnode = document.createTextNode("Reply: " + msg.data);         // Create a text node
+	node.appendChild(textnode);  
+	document.getElementById("person").appendChild(node); 
+    if (msg.data == 'reload') {
+	console.log("Reloaded!");
+     }
+  };
+  console.log('Live reload enabled.');
+})();
+
+function onSend(){
+	socket.send('e');
+}
+</script>
+
+</html>
+
